@@ -6,15 +6,17 @@ import { Upload, FileText, Sparkles, Building2, Calendar, MapPin, CheckCircle2, 
 interface Props {
   header: PreetabliHeader;
   setHeader: (header: PreetabliHeader) => void;
-  onEmployeesLoaded: (employees: any[]) => void;
+  onEmployeesLoaded: (employees: any[], bdsBaseline?: any[]) => void;
   employeeCount: number;
+  bdsBaselineCount?: number;
 }
 
 export const PreetabliUploader: React.FC<Props> = ({
   header,
   setHeader,
   onEmployeesLoaded,
-  employeeCount
+  employeeCount,
+  bdsBaselineCount = 0
 }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [fileName, setFileName] = useState<string>('');
@@ -40,7 +42,7 @@ export const PreetabliUploader: React.FC<Props> = ({
           setHeader(parsedHeader);
           setEditForm(parsedHeader);
           if (parsedEmployees.length > 0) {
-            onEmployeesLoaded(parsedEmployees);
+            onEmployeesLoaded(parsedEmployees, parsedEmployees);
           }
         }
       }
@@ -53,7 +55,9 @@ export const PreetabliUploader: React.FC<Props> = ({
     const { header: parsedHeader, employees: parsedEmployees } = parsePreetabliFile(sampleContent);
     setHeader(parsedHeader);
     setEditForm(parsedHeader);
-    onEmployeesLoaded(parsedEmployees);
+    // Baseline contains the 28 preetablis (B02)
+    const bdsBaseline = parsedEmployees.filter(e => e.isPreetabli);
+    onEmployeesLoaded(parsedEmployees, bdsBaseline);
     setFileName('EXEMPLE_PREETABLI_BDS_CNSS.txt');
     setError(null);
   };
@@ -255,6 +259,17 @@ export const PreetabliUploader: React.FC<Props> = ({
                     />
                   </div>
 
+                  <div>
+                    <label className="block text-slate-600 font-medium mb-1">Réf. Structure / N° Bordereau (B00)</label>
+                    <input
+                      type="text"
+                      value={editForm.structureRef || ''}
+                      onChange={e => setEditForm({ ...editForm, structureRef: e.target.value })}
+                      className="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded text-xs focus:ring-1 focus:ring-emerald-500 font-mono"
+                      placeholder="Ex: 2605014B0 (Format standard YYMM014B0)"
+                    />
+                  </div>
+
                   <div className="sm:col-span-2">
                     <label className="block text-slate-600 font-medium mb-1">Adresse</label>
                     <input
@@ -308,6 +323,13 @@ export const PreetabliUploader: React.FC<Props> = ({
                       {header.dateExigibilite && header.dateExigibilite.length === 8
                         ? `${header.dateExigibilite.slice(6, 8)}/${header.dateExigibilite.slice(4, 6)}/${header.dateExigibilite.slice(0, 4)}`
                         : '10 du mois suivant'}
+                    </span>
+                  </div>
+
+                  <div>
+                    <span className="text-slate-500 block text-[11px]">Réf. Structure (B00) :</span>
+                    <span className="font-mono text-emerald-800 bg-emerald-50 px-1.5 py-0.5 rounded text-[11px] font-semibold border border-emerald-200 inline-block">
+                      {header.structureRef || '00000000000000'}
                     </span>
                   </div>
 

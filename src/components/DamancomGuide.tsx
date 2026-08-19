@@ -57,9 +57,9 @@ export const DamancomGuide: React.FC = () => {
             <div className="w-8 h-8 rounded-full bg-emerald-700 text-white font-bold text-sm flex items-center justify-center">
               3
             </div>
-            <h3 className="font-bold text-emerald-950 text-xs">GFDS.ma (Édition)</h3>
+            <h3 className="font-bold text-emerald-950 text-xs">Al Ghali DS (Édition)</h3>
             <p className="text-[11px] text-emerald-800">
-              Glissez le BDS dans GFDS. Ajustez les jours, salaires réels ou collez vos données Excel (Ctrl+V).
+              Glissez le BDS dans Al Ghali. Ajustez les jours, salaires réels ou collez vos données Excel (Ctrl+V).
             </p>
           </div>
 

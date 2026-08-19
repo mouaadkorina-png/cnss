@@ -1,6 +1,6 @@
 {
-  "name": "GFDS - Générateur Fichier DS CNSS Maroc",
-  "description": "Application de génération de fichiers DS (Déclaration des Salaires) et DSC (Déclaration Complémentaire) pour la télédéclaration CNSS Damancom en mode EDI au Maroc avec import de fichiers préétablis, tableur interactif, validation automatique des numéros CNSS et calcul des cotisations.",
+  "name": "Al Ghali - Déclaration des Salaires CNSS",
+  "description": "Générateur de fichiers de Déclaration des Salaires (DS et DSC) pour la télédéclaration CNSS Damancom en mode EDI au Maroc avec import de fichiers préétablis, tableur interactif, validation des numéros CNSS et calcul des cotisations.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

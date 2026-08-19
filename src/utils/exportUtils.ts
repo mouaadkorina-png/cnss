@@ -1,6 +1,6 @@
 import * as XLSX from 'xlsx';
 import { EmployeeRecord, PreetabliHeader } from '../types';
-import { CNSS_CEILING, isValidCNSS } from './cnssUtils';
+import { CNSS_CEILING, isValidCNSS, splitNomPrenom } from './cnssUtils';
 
 export function exportToExcel(employees: EmployeeRecord[], header: PreetabliHeader, fileName = 'declaration_salaires_cnss.xlsx') {
   const data = employees.map((emp, index) => ({
@@ -110,6 +110,13 @@ export function parseExcelFile(file: File): Promise<Partial<EmployeeRecord>[]> {
 
           if (prenomIdx !== -1 && row[prenomIdx] !== undefined) prenom = String(row[prenomIdx]).trim();
           else if (row[2] !== undefined && prenomIdx === -1 && nomIdx === -1) prenom = String(row[2]).trim();
+
+          // If prenom is empty and nom has multiple words or comma/slash, split intelligently
+          if (nom && !prenom && (nom.includes(' ') || nom.includes(',') || nom.includes('/'))) {
+            const split = splitNomPrenom(nom);
+            nom = split.nom;
+            prenom = split.prenom;
+          }
 
           if (cinIdx !== -1 && row[cinIdx] !== undefined) cin = String(row[cinIdx]).trim();
           else if (row[3] !== undefined && cinIdx === -1) cin = String(row[3]).trim();

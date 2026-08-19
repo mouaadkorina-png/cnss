@@ -38,12 +38,12 @@ export const ContactModal: React.FC<Props> = ({ isOpen, onClose }) => {
         </button>
 
         <div className="flex items-center gap-3 mb-4">
-          <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center">
-            <Phone className="w-5 h-5" />
+          <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">
+            AG
           </div>
           <div>
-            <h2 className="text-base font-bold text-slate-900">Contact & Support GFDS.ma</h2>
-            <p className="text-xs text-slate-500">Une équipe réactive pour vos besoins informatiques & déclarations</p>
+            <h2 className="text-base font-bold text-slate-900">Contact & Support Al Ghali</h2>
+            <p className="text-xs text-slate-500">Assistance pour vos déclarations des salaires CNSS DAMANCOM</p>
           </div>
         </div>
 
@@ -52,20 +52,20 @@ export const ContactModal: React.FC<Props> = ({ isOpen, onClose }) => {
           <div className="flex items-center gap-2 text-slate-700">
             <Phone className="w-4 h-4 text-emerald-600" />
             <span>Tél / WhatsApp : </span>
-            <a href="tel:+212699052571" className="font-bold text-emerald-800 hover:underline">
-              +212 699 052 571
+            <a href="tel:+212660245603" className="font-bold text-emerald-800 hover:underline font-mono">
+              06 60 24 56 03
             </a>
           </div>
           <div className="flex items-center gap-2 text-slate-700">
             <Mail className="w-4 h-4 text-emerald-600" />
             <span>Email : </span>
-            <a href="mailto:boudalia.tareq@gmail.com" className="font-bold text-emerald-800 hover:underline">
-              boudalia.tareq@gmail.com
+            <a href="mailto:mouaad.korina@gmail.com" className="font-bold text-emerald-800 hover:underline">
+              mouaad.korina@gmail.com
             </a>
           </div>
           <div className="flex items-center gap-2 text-slate-700">
             <MapPin className="w-4 h-4 text-emerald-600" />
-            <span>Localisation : Casablanca, Maroc</span>
+            <span>Localisation : Maroc</span>
           </div>
         </div>
 

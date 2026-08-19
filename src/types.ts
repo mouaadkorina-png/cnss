@@ -33,7 +33,7 @@ export interface EmployeeRecord {
   isValidCNSS?: boolean;
 }
 
-export type ActiveTab = 'principale' | 'complementaire' | 'simulateur' | 'validateur' | 'guide' | 'produits' | 'contact';
+export type ActiveTab = 'principale' | 'complementaire' | 'simulateur' | 'validateur' | 'guide';
 
 export interface DeclarationSummary {
   totalSalaries: number;
@@ -42,6 +42,10 @@ export interface DeclarationSummary {
   totalSalairePlafonne: number;
   totalPreetablis: number;
   totalEntrants: number;
+  salaireReelPreetablis: number;
+  salaireReelEntrants: number;
+  joursPreetablis: number;
+  joursEntrants: number;
   totalCotisations: CotisationSummary;
   hasErrors: boolean;
   errorCount: number;

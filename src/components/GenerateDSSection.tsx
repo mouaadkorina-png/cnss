@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { EmployeeRecord, PreetabliHeader, DeclarationSummary } from '../types';
+import { EmployeeRecord, PreetabliHeader } from '../types';
 import { generateDSFile, computeDeclarationSummary } from '../utils/cnssUtils';
 import confetti from 'canvas-confetti';
 import { 
@@ -10,11 +10,12 @@ import {
   Eye, 
   AlertCircle, 
   ShieldAlert, 
-  FileText, 
-  Printer, 
-  CheckCircle,
-  ExternalLink,
-  ChevronRight
+  CheckCircle, 
+  ChevronRight,
+  Layers,
+  FileCheck,
+  Building,
+  Users
 } from 'lucide-react';
 
 interface Props {
@@ -69,7 +70,7 @@ export const GenerateDSSection: React.FC<Props> = ({
       return;
     }
 
-    // Open file preview modal
+    // Open file preview modal and download
     triggerDownload();
   };
 
@@ -157,6 +158,97 @@ export const GenerateDSSection: React.FC<Props> = ({
               Générez le fichier {declarationType === 'complementaire' ? 'DSC' : 'DS'}
             </span>
           </button>
+        </div>
+      </div>
+
+      {/* Breakdown Cards by Segment (B02 vs B04 vs B06) */}
+      <div className="p-6 bg-white border-b border-slate-200">
+        <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+          <Layers className="w-4 h-4 text-emerald-600" />
+          <span>Répartition et Qualification des Segments EDI dans le Fichier TXT :</span>
+        </h3>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {/* Card 1: Preétablis B02 + B03 */}
+          <div className="p-4 rounded-xl border border-blue-200 bg-blue-50/50">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-bold text-blue-900 flex items-center gap-1">
+                <span className="w-2 h-2 rounded-full bg-blue-600"></span>
+                Salariés Préétablis
+              </span>
+              <span className="text-[11px] font-mono font-bold bg-blue-100 text-blue-800 px-2 py-0.5 rounded">
+                Lignes B02 & Total B03
+              </span>
+            </div>
+            <div className="space-y-1 text-xs text-slate-700">
+              <div className="flex justify-between">
+                <span className="text-slate-500">Nombre de salariés :</span>
+                <strong className="font-mono text-blue-900">{summary.totalPreetablis}</strong>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-500">Total jours déclarés :</span>
+                <strong className="font-mono">{summary.joursPreetablis} j</strong>
+              </div>
+              <div className="flex justify-between pt-1 border-t border-blue-200/60 font-semibold">
+                <span className="text-slate-600">Masse Salariale B02 :</span>
+                <span className="font-mono text-blue-900">{summary.salaireReelPreetablis.toLocaleString('fr-FR', { minimumFractionDigits: 2 })} DH</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 2: Nouveaux Entrants B04 + B05 */}
+          <div className="p-4 rounded-xl border border-emerald-200 bg-emerald-50/50">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-bold text-emerald-900 flex items-center gap-1">
+                <span className="w-2 h-2 rounded-full bg-emerald-600"></span>
+                Nouveaux Salariés (Entrants)
+              </span>
+              <span className="text-[11px] font-mono font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded">
+                Lignes B04 & Total B05
+              </span>
+            </div>
+            <div className="space-y-1 text-xs text-slate-700">
+              <div className="flex justify-between">
+                <span className="text-slate-500">Nombre de salariés :</span>
+                <strong className="font-mono text-emerald-900">{summary.totalEntrants}</strong>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-500">Total jours déclarés :</span>
+                <strong className="font-mono">{summary.joursEntrants} j</strong>
+              </div>
+              <div className="flex justify-between pt-1 border-t border-emerald-200/60 font-semibold">
+                <span className="text-slate-600">Masse Salariale B04 :</span>
+                <span className="font-mono text-emerald-900">{summary.salaireReelEntrants.toLocaleString('fr-FR', { minimumFractionDigits: 2 })} DH</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 3: Grand Total B06 */}
+          <div className="p-4 rounded-xl border border-slate-300 bg-slate-50">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-bold text-slate-900 flex items-center gap-1">
+                <FileCheck className="w-4 h-4 text-slate-700" />
+                Total Général Déclaration
+              </span>
+              <span className="text-[11px] font-mono font-bold bg-slate-200 text-slate-800 px-2 py-0.5 rounded">
+                Ligne Finale B06
+              </span>
+            </div>
+            <div className="space-y-1 text-xs text-slate-700">
+              <div className="flex justify-between">
+                <span className="text-slate-500">Total salariés :</span>
+                <strong className="font-mono text-slate-900">{summary.totalSalaries}</strong>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-500">Total jours déclarés :</span>
+                <strong className="font-mono">{summary.totalJours} j</strong>
+              </div>
+              <div className="flex justify-between pt-1 border-t border-slate-300 font-bold">
+                <span className="text-slate-700">Masse Salariale Globale :</span>
+                <span className="font-mono text-emerald-700">{summary.totalSalaireReel.toLocaleString('fr-FR', { minimumFractionDigits: 2 })} DH</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -296,15 +388,15 @@ export const GenerateDSSection: React.FC<Props> = ({
               <span className="font-semibold text-slate-800">Segments EDI CNSS :</span>
               <span className="text-blue-700 font-mono">B00: Entête</span>
               <span className="text-indigo-700 font-mono">B01: Affilié</span>
-              <span className="text-emerald-700 font-mono">B02: Salariés préétablis</span>
+              <span className="text-emerald-700 font-mono">B02: Salariés préétablis ({summary.totalPreetablis})</span>
               <span className="text-teal-700 font-mono">B03: Totaux B02</span>
               {summary.totalEntrants > 0 && (
                 <>
-                  <span className="text-purple-700 font-mono">B04: Entrants</span>
+                  <span className="text-purple-700 font-mono">B04: Entrants ({summary.totalEntrants})</span>
                   <span className="text-fuchsia-700 font-mono">B05: Totaux B04</span>
                 </>
               )}
-              <span className="text-amber-800 font-mono">B06: Total Général</span>
+              <span className="text-amber-800 font-mono">B06: Total Général ({summary.totalSalaries})</span>
             </div>
 
             {/* Code / Text Preview */}

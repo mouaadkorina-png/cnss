@@ -9,7 +9,6 @@ import { ComplementaireView } from './components/ComplementaireView';
 import { CotisationsSimulator } from './components/CotisationsSimulator';
 import { CnssValidatorTool } from './components/CnssValidatorTool';
 import { DamancomGuide } from './components/DamancomGuide';
-import { ProductsServices } from './components/ProductsServices';
 import { ContactModal } from './components/ContactModal';
 import { Footer } from './components/Footer';
 import { ShieldCheck, FileSpreadsheet, CheckCircle2, AlertCircle } from 'lucide-react';
@@ -101,6 +100,62 @@ export default function App() {
     }
   ]);
 
+  // Baseline employees from official BDS (B02 reference)
+  const [bdsBaselineEmployees, setBdsBaselineEmployees] = useState<EmployeeRecord[]>([
+    {
+      id: 'bds_1',
+      cnss: '183920194',
+      nom: 'EL ALAMI',
+      prenom: 'MOHAMED',
+      cin: 'BK123456',
+      jours: 26,
+      salaireReel: 8500.00,
+      salairePlafonne: 6000.00,
+      situation: '',
+      isPreetabli: true,
+      isValidCNSS: true
+    },
+    {
+      id: 'bds_2',
+      cnss: '204918239',
+      nom: 'BENJELLOUN',
+      prenom: 'FATIMA',
+      cin: 'BE987654',
+      jours: 26,
+      salaireReel: 12000.00,
+      salairePlafonne: 6000.00,
+      situation: '',
+      isPreetabli: true,
+      isValidCNSS: true
+    },
+    {
+      id: 'bds_3',
+      cnss: '109283401',
+      nom: 'TAHIRI',
+      prenom: 'YOUSSEF',
+      cin: 'A456123',
+      jours: 26,
+      salaireReel: 4500.00,
+      salairePlafonne: 4500.00,
+      situation: '',
+      isPreetabli: true,
+      isValidCNSS: true
+    },
+    {
+      id: 'bds_4',
+      cnss: '194827364',
+      nom: 'IDRISSI',
+      prenom: 'SALMA',
+      cin: 'CD789123',
+      jours: 14,
+      salaireReel: 3200.00,
+      salairePlafonne: 3200.00,
+      situation: 'IT',
+      isPreetabli: true,
+      isValidCNSS: true
+    }
+  ]);
+
   return (
     <div className="min-h-screen flex flex-col bg-slate-100 text-slate-900 font-sans antialiased selection:bg-emerald-500 selection:text-white">
       {/* Top Navbar */}
@@ -119,8 +174,14 @@ export default function App() {
             <PreetabliUploader
               header={header}
               setHeader={setHeader}
-              onEmployeesLoaded={newEmps => setEmployees(newEmps)}
+              onEmployeesLoaded={(newEmps, bdsBaseline) => {
+                setEmployees(newEmps);
+                if (bdsBaseline) {
+                  setBdsBaselineEmployees(bdsBaseline);
+                }
+              }}
               employeeCount={employees.length}
+              bdsBaselineCount={bdsBaselineEmployees.length}
             />
 
             {/* Step 2: Interactive Table Grid & Excel Paste */}
@@ -128,6 +189,7 @@ export default function App() {
               employees={employees}
               setEmployees={setEmployees}
               header={header}
+              bdsBaselineEmployees={bdsBaselineEmployees}
             />
 
             {/* Step 3: EDI File Generation & Download */}
@@ -165,13 +227,6 @@ export default function App() {
         {/* Tab 5: Guide DAMANCOM */}
         {activeTab === 'guide' && (
           <DamancomGuide />
-        )}
-
-        {/* Tab 6: Nos Produits & Services */}
-        {activeTab === 'produits' && (
-          <ProductsServices
-            onOpenContact={() => setIsContactOpen(true)}
-          />
         )}
       </main>
 

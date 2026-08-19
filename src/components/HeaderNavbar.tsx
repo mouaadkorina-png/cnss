@@ -1,6 +1,6 @@
 import React from 'react';
 import { ActiveTab } from '../types';
-import { FileText, Layers, Calculator, ShieldCheck, BookOpen, Briefcase, Phone, CheckCircle2 } from 'lucide-react';
+import { FileText, Layers, Calculator, ShieldCheck, BookOpen, Phone } from 'lucide-react';
 
 interface Props {
   activeTab: ActiveTab;
@@ -22,14 +22,19 @@ export const HeaderNavbar: React.FC<Props> = ({ activeTab, setActiveTab, onOpenC
           </div>
           <div className="flex items-center gap-4 text-xs">
             <a 
-              href="tel:+212699052571" 
-              className="flex items-center gap-1.5 hover:text-emerald-200 transition-colors"
+              href="tel:+212660245603" 
+              className="flex items-center gap-1.5 hover:text-emerald-200 transition-colors font-mono"
             >
               <Phone className="w-3.5 h-3.5" />
-              <span>+212 699 052 571</span>
+              <span>06 60 24 56 03</span>
             </a>
             <span className="text-emerald-300/60">•</span>
-            <span className="text-emerald-100">boudalia.tareq@gmail.com</span>
+            <a 
+              href="mailto:mouaad.korina@gmail.com" 
+              className="text-emerald-100 hover:text-white transition-colors"
+            >
+              mouaad.korina@gmail.com
+            </a>
           </div>
         </div>
       </div>
@@ -43,16 +48,16 @@ export const HeaderNavbar: React.FC<Props> = ({ activeTab, setActiveTab, onOpenC
             className="flex items-center gap-3 cursor-pointer group"
           >
             <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-700 flex items-center justify-center text-white font-black text-xl shadow-md group-hover:scale-105 transition-transform">
-              DS
+              AG
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <span className="font-extrabold text-xl tracking-tight text-white">GFDS<span className="text-emerald-400">.ma</span></span>
+                <span className="font-extrabold text-xl tracking-tight text-white">Al Ghali<span className="text-emerald-400"> DS</span></span>
                 <span className="text-[10px] bg-slate-800 text-emerald-400 border border-emerald-500/30 px-1.5 py-0.5 rounded font-mono font-semibold">
                   v2026 EDI
                 </span>
               </div>
-              <p className="text-[11px] text-slate-400 hidden sm:block">Générateur Déclaration des Salaires CNSS</p>
+              <p className="text-[11px] text-slate-400 hidden sm:block">Générateur Déclaration des Salaires CNSS Maroc</p>
             </div>
           </div>
 
@@ -68,7 +73,7 @@ export const HeaderNavbar: React.FC<Props> = ({ activeTab, setActiveTab, onOpenC
               }`}
             >
               <FileText className="w-4 h-4" />
-              <span>Déclaration Principale</span>
+              <span>Déclaration Principale (DS)</span>
             </button>
 
             <button
@@ -122,19 +127,6 @@ export const HeaderNavbar: React.FC<Props> = ({ activeTab, setActiveTab, onOpenC
               <BookOpen className="w-4 h-4" />
               <span>Guide DAMANCOM</span>
             </button>
-
-            <button
-              id="tab-btn-produits"
-              onClick={() => setActiveTab('produits')}
-              className={`px-3.5 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 ${
-                activeTab === 'produits'
-                  ? 'bg-emerald-600 text-white shadow-sm'
-                  : 'text-slate-300 hover:text-white hover:bg-slate-800'
-              }`}
-            >
-              <Briefcase className="w-4 h-4" />
-              <span>Nos Produits</span>
-            </button>
           </nav>
 
           {/* Right Action */}
@@ -182,14 +174,9 @@ export const HeaderNavbar: React.FC<Props> = ({ activeTab, setActiveTab, onOpenC
           >
             Guide
           </button>
-          <button
-            onClick={() => setActiveTab('produits')}
-            className={`px-3 py-1.5 rounded whitespace-nowrap ${activeTab === 'produits' ? 'bg-emerald-600 text-white font-semibold' : 'text-slate-300'}`}
-          >
-            Produits
-          </button>
         </div>
       </div>
     </header>
   );
 };
+
